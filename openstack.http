@@ -1,0 +1,30 @@
+@port = 5000
+@host = http://{{$dotenv CONTROLLER}}:{{port}}
+
+
+# https://docs.openstack.org/api-ref/identity/v3/
+
+POST {{host}}/v3/auth/tokens
+Content-Type: application/json
+
+{
+   "auth":{
+      "identity":{
+         "methods":[
+            "password"
+         ],
+         "password":{
+            "user":{
+               "name": "{{$dotenv USER}}",
+               "domain":{
+                  "name": "Default"
+               },
+               "password": "{{$dotenv PASSWORD}}"
+            }
+         }
+      }
+   }
+}
+
+
+
